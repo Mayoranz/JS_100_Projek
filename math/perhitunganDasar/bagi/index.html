@@ -12,40 +12,7 @@
     <button id="convertBtn" aria-describedby="resultDesc">Konversi</button>
     <div class="result" id="binaryResult"></div>
   </main>
-  <script>
-    (function(){
-      const decimalInput = document.getElementById('decimalInput');
-      const convertBtn = document.getElementById('convertBtn');
-      const binaryResult = document.getElementById('binaryResult');
-
-      function isValidNonNegativeInteger(value) {
-        return Number.isInteger(value) && value >= 0;
-      }
-
-      convertBtn.addEventListener('click', () => {
-        const inputValue = Number(decimalInput.value);
-        if (decimalInput.value.trim() === '') {
-          binaryResult.style.color = 'crimson';
-          binaryResult.textContent = 'Mohon masukkan angka desimal.';
-          return;
-        }
-        if (!isValidNonNegativeInteger(inputValue)) {
-          binaryResult.style.color = 'crimson';
-          binaryResult.textContent = 'Masukkan angka bulat non-negatif yang valid.';
-          return;
-        }
-        const binaryValue = inputValue.toString(2);
-        binaryResult.style.color = '#0b3954';
-        binaryResult.textContent = `Hasil biner: ${binaryValue}`;
-      });
-
-      // Support pressing Enter key in input to convert
-      decimalInput.addEventListener('keypress', e => {
-        if (e.key === 'Enter') {
-          convertBtn.click();
-        }
-      });
-    })();
+  <script scr="script.js">
   </script>
 </body>
 </html>
