@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Hitung Vokal</title>
+</head>
+<body>
+  <main class="container" role="main" aria-labelledby="title">
+    <h1 id="title">Hitung Vokal</h1>
+    <form id="vowelForm" novalidate>
+      <label for="InputKata">Masukkan Kata:</label>
+      <input
+        type="text"
+        id="InputKata"
+        placeholder="Contoh: Hello"
+        aria-describedby="Kataerror"
+        required
+      />
+      <div id="Kataerror" class="error" aria-live="assertive"></div>
+
+      <button type="submit">Hitung Vokal</button>
+    </form>
+    <div id="result" class="result" aria-live="polite"></div>
+  </main>
+
+<script>
+  (function() {
+    const InputKata = document.getElementById("InputKata");
+    const Kataerror = document.getElementById("Kataerror");
+    const resultDiv = document.getElementById("result");
+    const form = document.getElementById("vowelForm");
+
+    form.addEventListener("submit", evt => {
+      evt.preventDefault();
+      Kataerror.textContent = "";
+      resultDiv.textContent = "";
+
+      const word = InputKata.value.trim().toLowerCase();
+
+      if (!word) {
+        Kataerror.textContent = "Mohon masukkan kata yang valid.";
+        return;
+      }
+
+      const vowels = "aeiou";
+      const vowelCount = Array.from(word).reduce((count, char) => {
+        return count + (vowels.includes(char) ? 1 : 0);
+      }, 0);
+
+      resultDiv.textContent = `Jumlah vokal: ${vowelCount}`;
+    });
+  })();
+</script>
+</body>
+</html>

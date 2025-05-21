@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Angka Romawi 2</title>
+</head>
+<body>
+  <div class="container" role="main">
+    <h1>>Angka romawi 2</h1>
+    <label for="inputNumber">Masukkan bilangan bulat untuk menentukan angka romawi:</label>
+    <input type="number" id="inputNumber" min="1" step="1" placeholder="Contoh: 1994" aria-describedby="error-msg" />
+    <div id="error-msg" class="error" aria-live="assertive"></div>
+    <button id="convertBtn" type="button">Konversi</button>
+    <div id="result" class="result" aria-live="polite"></div>
+  </div>
+
+<script>
+  (function() {
+    const nilaiRomawi = [
+      [1000, "M"],
+      [900, "CM"],
+      [500, "D"],
+      [400, "CD"],
+      [100, "C"],
+      [90, "XC"],
+      [50, "L"],
+      [40, "XL"],
+      [10, "X"],
+      [9, "IX"],
+      [5, "V"],
+      [4, "IV"],
+      [1, "I"]
+    ];
+
+    const inputNumber = document.getElementById('inputNumber');
+    const convertBtn = document.getElementById('convertBtn');
+    const resultDiv = document.getElementById('result');
+    const errorMsg = document.getElementById('error-msg');
+
+    function toRoman(num) {
+      let angkaRomawi = "";
+      for (const [nilai, simbol] of nilaiRomawi) {
+        while (num >= nilai) {
+          angkaRomawi += simbol;
+          num -= nilai;
+        }
+      }
+      return angkaRomawi;
+    }
+
+    convertBtn.addEventListener('click', () => {
+      errorMsg.textContent = '';
+      resultDiv.textContent = '';
+      let value = inputNumber.value.trim();
+
+      if (!value) {
+        errorMsg.textContent = 'Mohon masukkan bilangan bulat.';
+        return;
+      }
+
+      const num = Number(value);
+
+      if (!Number.isInteger(num) || num <= 0) {
+        errorMsg.textContent = 'Masukkan harus bilangan bulat positif.';
+        return;
+      }
+
+      const roman = toRoman(num);
+      resultDiv.textContent = `Angka Romawinya adalah : ${roman}`;
+    });
+  })();
+</script>
+</body>
+</html>
+

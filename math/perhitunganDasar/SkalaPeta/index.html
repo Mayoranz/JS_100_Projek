@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Perhitungan Jarak Pada Peta</title>
+</head>
+<body>
+  <main class="container" role="main" aria-labelledby="title">
+    <h1 id="title">Perhitungan Jarak Pada Peta</h1>
+    <form id="jarakForm" novalidate>
+      <label for="jarakInput">Masukan Jarak Pada Peta (dalam cm):</label>
+      <input
+        type="number"
+        id="jarakInput"
+        placeholder="Contoh: 150"
+        aria-describedby="jarakError"
+        required
+      />
+      <div id="jarakError" class="error" aria-live="assertive"></div>
+
+      <label for="skalaInput">Masukan Skala Peta (angka setelah 1/):</label>
+      <input
+        type="number"
+        min="1"
+        id="skalaInput"
+        placeholder="Contoh: 50000"
+        aria-describedby="skalaError"
+        required
+      />
+      <div id="skalaError" class="error" aria-live="assertive"></div>
+
+      <button type="submit">Hitung Jarak Sebenarnya</button>
+    </form>
+    <div id="result" class="result" aria-live="polite"></div>
+  </main>
+
+<script>
+  (function() {
+    const jarakInput = document.getElementById("jarakInput");
+    const skalaInput = document.getElementById("skalaInput");
+    const jarakError = document.getElementById("jarakError");
+    const skalaError = document.getElementById("skalaError");
+    const resultDiv = document.getElementById("result");
+    const form = document.getElementById("jarakForm");
+
+    form.addEventListener("submit", evt => {
+      evt.preventDefault();
+      jarakError.textContent = "";
+      skalaError.textContent = "";
+      resultDiv.textContent = "";
+
+      const jarak = parseFloat(jarakInput.value);
+      const skala = parseFloat(skalaInput.value);
+
+      let valid = true;
+
+      if (isNaN(jarak) || jarak < 0) {
+        jarakError.textContent = "Mohon masukkan jarak positif valid dalam cm.";
+        valid = false;
+      }
+
+      if (isNaN(skala) || skala < 1) {
+        skalaError.textContent = "Mohon masukkan nilai skala minimal 1.";
+        valid = false;
+      }
+
+      if (!valid) return;
+
+      const jarakNyata = (jarak * skala) / 100000;
+
+      resultDiv.textContent = `Jarak sebenarnya adalah: ${jarakNyata.toFixed(4)} KM`;
+    });
+  })();
+</script>
+</body>
+</html>
+
