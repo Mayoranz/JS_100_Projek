@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Hari Besok</title>
+</head>
+<body>
+  <main class="container" role="main" aria-labelledby="title">
+    <h1 id="title">Hari Besok</h1>
+    <form id="dayForm" novalidate>
+      <label for="dayInput">Masukkan Nama Hari:</label>
+      <input
+        type="text"
+        id="dayInput"
+        placeholder="Contoh: Senin"
+        aria-describedby="dayError"
+        required
+      />
+      <div id="dayError" class="error" aria-live="assertive"></div>
+
+      <button type="submit">Cek Hari Besok</button>
+    </form>
+    <div id="result" class="result" aria-live="polite"></div>
+  </main>
+
+<script>
+  (function() {
+    const dayInput = document.getElementById("dayInput");
+    const dayError = document.getElementById("dayError");
+    const resultDiv = document.getElementById("result");
+    const form = document.getElementById("dayForm");
+
+    form.addEventListener("submit", evt => {
+      evt.preventDefault();
+      dayError.textContent = "";
+      resultDiv.textContent = "";
+
+      const day = dayInput.value.trim().toLowerCase();
+
+      const nextDay = {
+        'senin': 'Selasa',
+        'selasa': 'Rabu',
+        'rabu': 'Kamis',
+        'kamis': 'Jumat',
+        'jumat': 'Sabtu',
+        'sabtu': 'Minggu',
+        'minggu': 'Senin'
+      };
+
+      if (nextDay[day]) {
+        resultDiv.textContent = `Besoknya: ${nextDay[day]}`;
+      } else {
+        resultDiv.textContent = 'Ini bukan nama hari yang valid.';
+      }
+    });
+  })();
+</script>
+</body>
+</html>

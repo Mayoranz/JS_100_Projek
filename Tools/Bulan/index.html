@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Jumlah Hari dalam Bulan</title>
+</head>
+<body>
+  <main class="container" role="main" aria-labelledby="title">
+    <h1 id="title">Jumlah Hari dalam Bulan</h1>
+    <form id="BulanForm" novalidate>
+      <label for="BulanInput">Masukkan Nomor Bulan (1-12):</label>
+      <input
+        type="number"
+        id="BulanInput"
+        min="1"
+        max="12"
+        placeholder="Contoh: 1"
+        aria-describedby="BulanError"
+        required
+      />
+      <div id="BulanError" class="error" aria-live="assertive"></div>
+
+      <button type="submit">Cek Jumlah Hari</button>
+    </form>
+    <div id="result" class="result" aria-live="polite"></div>
+  </main>
+
+<script>
+  (function() {
+    const BulanInput = document.getElementById("BulanInput");
+    const BulanError = document.getElementById("BulanError");
+    const resultDiv = document.getElementById("result");
+    const form = document.getElementById("BulanForm");
+
+    form.addEventListener("submit", evt => {
+      evt.preventDefault();
+      BulanError.textContent = "";
+      resultDiv.textContent = "";
+
+      const Bulan = parseInt(BulanInput.value, 10);
+
+      const Bulans = {
+        1: { Bulan: "JANUARI", tanggal: 31 },
+        2: { Bulan: "FEBRUARI", tanggal: "28 atau 29" },
+        3: { Bulan: "MARET", tanggal: 31 },
+        4: { Bulan: "APRIL", tanggal: 30 },
+        5: { Bulan: "MEI", tanggal: 31 },
+        6: { Bulan: "JUNI", tanggal: 30 },
+        7: { Bulan: "JULI", tanggal: 31 },
+        8: { Bulan: "AGUSTUS", tanggal: 31 },
+        9: { Bulan: "SEPTEMBER", tanggal: 30 },
+        10: { Bulan: "OKTOBER", tanggal: 31 },
+        11: { Bulan: "NOVEMBER", tanggal: 30 },
+        12: { Bulan: "DESEMBER", tanggal: 31 }
+      };
+
+      if (Bulan >= 1 && Bulan <= 12) {
+        const hasil = Bulans[Bulan];
+        resultDiv.textContent = `${hasil.Bulan} - ada ${hasil.tanggal} hari`;
+      } else {
+        BulanError.textContent = "Masukkan nomor bulan yang valid (1-12).";
+      }
+    });
+  })();
+</script>
+</body>
+</html>
